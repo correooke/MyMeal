@@ -1,0 +1,90 @@
+{
+  "swagger": "2.0",
+  "paths": {
+    "/dishes": {
+      "get": {
+        "tags": [
+          "dishes"
+        ],
+        "operationId": "getDishes",
+        "responses": {
+          "200": {
+            "$ref": "#/responses/successfulOperation"
+          },
+          "500": {
+            "$ref": "#/responses/internalServerError"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "dishes"
+        ],
+        "operationId": "createDish",
+        "responses": {
+          "200": {
+            "$ref": "#/responses/successfulOperation"
+          },
+          "400": {
+            "$ref": "#/responses/badRequestError"
+          },
+          "500": {
+            "$ref": "#/responses/internalServerError"
+          }
+        }
+      }
+    },
+    "/dishes/{id}": {
+      "put": {
+        "tags": [
+          "dishes"
+        ],
+        "operationId": "updateDish",
+        "responses": {
+          "200": {
+            "$ref": "#/responses/successfulOperation"
+          },
+          "400": {
+            "$ref": "#/responses/badRequestError"
+          },
+          "404": {
+            "$ref": "#/responses/notFoundError"
+          },
+          "500": {
+            "$ref": "#/responses/internalServerError"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "dishes"
+        ],
+        "operationId": "deleteDish",
+        "responses": {
+          "200": {
+            "$ref": "#/responses/successfulOperation"
+          },
+          "404": {
+            "$ref": "#/responses/notFoundError"
+          },
+          "500": {
+            "$ref": "#/responses/internalServerError"
+          }
+        }
+      }
+    },
+    "/isalive": {
+      "get": {
+        "tags": [
+          "dishes"
+        ],
+        "operationId": "isAlive",
+        "responses": {
+          "200": {
+            "$ref": "#/responses/successfulOperation"
+          }
+        }
+      }
+    }
+  }
+}

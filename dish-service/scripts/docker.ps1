@@ -1,0 +1,1 @@
+docker build -t dish-service -f docker/Dockerfile .
