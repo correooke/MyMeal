@@ -3,13 +3,12 @@ package router
 import (
 	"net/http"
 
-	"github.com/correooke/MyMeal/common/handlers"
+	"github.com/correooke/MyMeal/tree/main/common/handlers"
 
 	"github.com/gorilla/mux"
 )
 
-func NewRouter() *mux.Router {
-	r := mux.NewRouter()
+func AddIsAlive(r *mux.Router) *mux.Router {
 	r.HandleFunc("/isalive", handlers.IsAlive).Methods(http.MethodGet)
 	// ... otros middlewares o configuraciones comunes ...
 	return r

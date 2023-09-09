@@ -1,4 +1,4 @@
-module github.com/correooke/MyMeal/common
+module github.com/correooke/MyMeal/tree/main/common
 
 go 1.21.0
 

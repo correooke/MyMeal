@@ -1,3 +1,5 @@
+github.com/correooke/MyMeal/common v0.0.0-20230909221459-9abcbd6f867d h1:lham10L1NVEKX6/+quyn8Dfa7GVDT7AnRhPLdJI3wVk=
+github.com/correooke/MyMeal/common v0.0.0-20230909221459-9abcbd6f867d/go.mod h1:+kB88D9XQ46x2cVOWI2vigLYB7BJS3ZiXmSNTHfCWGM=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/golang/snappy v0.0.1 h1:Qgr9rKW7uDUkrbSmQeiDsGa8SjGyCOGtuasMWwvp2P4=
 github.com/golang/snappy v0.0.1/go.mod h1:/XxbfmMg8lxefKM7IXC3fBNl/7bRcc72aCRzEWrmP2Q=
