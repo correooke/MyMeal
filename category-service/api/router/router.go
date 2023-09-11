@@ -4,14 +4,14 @@ import (
 	"category-service/internal/app/category/handler"
 	"net/http"
 
-	"github.com/correooke/MyMeal/common"
+	"github.com/correooke/MyMeal/common/router"
 	"github.com/gorilla/mux"
 )
 
 func NewRouter(ch *handler.CategoryHandler) *mux.Router {
 	r := mux.NewRouter()
 
-	common.AddIsAlive(r)
+	router.AddIsAlive(r)
 	r.HandleFunc("/isalive", ch.IsAlive).Methods(http.MethodGet)
 	r.HandleFunc("/categories", ch.GetCategories).Methods(http.MethodGet)
 	r.HandleFunc("/categories/{id}", ch.GetCategory).Methods(http.MethodGet)

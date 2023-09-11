@@ -3,7 +3,7 @@ package router
 import (
 	"net/http"
 
-	"github.com/correooke/MyMeal/tree/main/common/handlers"
+	"github.com/correooke/MyMeal/common/handlers"
 
 	"github.com/gorilla/mux"
 )

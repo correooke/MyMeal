@@ -3,7 +3,7 @@ module category-service
 go 1.21.0
 
 require (
-	github.com/correooke/MyMeal/common v0.0.0-20230909221459-9abcbd6f867d // indirect
+	github.com/correooke/MyMeal/common v0.0.0-20230909225018-e22b14863481 // indirect
 	github.com/golang/snappy v0.0.1 // indirect
 	github.com/gorilla/mux v1.8.0 // indirect
 	github.com/klauspost/compress v1.13.6 // indirect
