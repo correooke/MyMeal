@@ -1,5 +1,5 @@
 package model
 
 type Entity interface {
-	Validate() error
+	// Validate() error
 }

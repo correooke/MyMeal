@@ -9,7 +9,7 @@ import (
 )
 
 const (
-	categoryCollection = "categoryes"
+	categoryCollection = "categories"
 )
 
 type CategoryRepository interface {

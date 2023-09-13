@@ -8,45 +8,45 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-type CommonRepository interface {
-	GetAll(ctx context.Context) ([]model.Entity, error)
-	GetByFilter(ctx context.Context, filter map[string]interface{}) ([]model.Entity, error)
-	GetByID(ctx context.Context, id string) (model.Entity, error)
-	Create(ctx context.Context, entity model.Entity) error
-	Update(ctx context.Context, id string, entity model.Entity) error
+type CommonRepository[T model.Entity] interface {
+	GetAll(ctx context.Context) ([]T, error)
+	GetByFilter(ctx context.Context, filter map[string]interface{}) ([]T, error)
+	GetByID(ctx context.Context, id string) (T, error)
+	Create(ctx context.Context, entity T) error
+	Update(ctx context.Context, id string, entity T) error
 	Delete(ctx context.Context, id string) error
 }
 
-type mongoRepository struct {
+type mongoRepository[T model.Entity] struct {
 	client         *mongo.Client
 	database       string
 	collectionName string
 }
 
-func NewMongoRepository(client *mongo.Client, database string, collectionName string) CommonRepository {
-	return &mongoRepository{client: client, database: database, collectionName: collectionName}
+func NewMongoRepository[T model.Entity](client *mongo.Client, database string, collectionName string) CommonRepository[T] {
+	return &mongoRepository[T]{client: client, database: database, collectionName: collectionName}
 }
 
-func (m *mongoRepository) collection() *mongo.Collection {
+func (m *mongoRepository[T]) collection() *mongo.Collection {
 	return m.client.Database(m.database).Collection(m.collectionName)
 }
 
-func (m *mongoRepository) GetAll(ctx context.Context) ([]model.Entity, error) {
+func (m *mongoRepository[T]) GetAll(ctx context.Context) ([]T, error) {
 	cur, err := m.collection().Find(ctx, bson.D{})
 	if err != nil {
 		return nil, err
 	}
 	defer cur.Close(ctx)
 
-	var collection []model.Entity
+	var collection []T
 	if err = cur.All(ctx, &collection); err != nil {
 		return nil, err
 	}
 	return collection, nil
 }
 
-func (m *mongoRepository) GetByFilter(ctx context.Context, filter map[string]interface{}) ([]model.Entity, error) {
-	var entities []model.Entity
+func (m *mongoRepository[T]) GetByFilter(ctx context.Context, filter map[string]interface{}) ([]T, error) {
+	var entities []T
 
 	cursor, err := m.collection().Find(ctx, filter)
 	if err != nil {
@@ -55,7 +55,7 @@ func (m *mongoRepository) GetByFilter(ctx context.Context, filter map[string]int
 	defer cursor.Close(ctx)
 
 	for cursor.Next(ctx) {
-		var entity model.Entity
+		var entity T
 		if err := cursor.Decode(&entity); err != nil {
 			return nil, err
 		}
@@ -69,25 +69,25 @@ func (m *mongoRepository) GetByFilter(ctx context.Context, filter map[string]int
 	return entities, nil
 }
 
-func (m *mongoRepository) GetByID(ctx context.Context, id string) (model.Entity, error) {
-	var entity model.Entity
+func (m *mongoRepository[T]) GetByID(ctx context.Context, id string) (T, error) {
+	var entity T
 	if err := m.collection().FindOne(ctx, bson.M{"_id": id}).Decode(&entity); err != nil {
-		return nil, err
+		return entity, err
 	}
 	return entity, nil
 }
 
-func (m *mongoRepository) Create(ctx context.Context, entity model.Entity) error {
+func (m *mongoRepository[T]) Create(ctx context.Context, entity T) error {
 	_, err := m.collection().InsertOne(ctx, entity)
 	return err
 }
 
-func (m *mongoRepository) Update(ctx context.Context, id string, entity model.Entity) error {
+func (m *mongoRepository[T]) Update(ctx context.Context, id string, entity T) error {
 	_, err := m.collection().UpdateOne(ctx, bson.M{"_id": id}, bson.M{"$set": entity})
 	return err
 }
 
-func (m *mongoRepository) Delete(ctx context.Context, id string) error {
+func (m *mongoRepository[T]) Delete(ctx context.Context, id string) error {
 	_, err := m.collection().DeleteOne(ctx, bson.M{"_id": id})
 	return err
 }
