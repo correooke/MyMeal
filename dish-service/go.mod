@@ -2,6 +2,8 @@ module dish-service
 
 go 1.21.0
 
+require github.com/correooke/MyMeal/common v0.0.0-20230913123815-a0a50010c3b9
+
 require (
 	github.com/Masterminds/goutils v1.1.1 // indirect
 	github.com/Masterminds/semver/v3 v3.2.1 // indirect
@@ -23,6 +25,7 @@ require (
 	github.com/go-openapi/validate v0.22.1 // indirect
 	github.com/go-swagger/go-swagger v0.30.5 // indirect
 	github.com/golang/snappy v0.0.4 // indirect
+	github.com/google/go-cmp v0.5.9 // indirect
 	github.com/google/uuid v1.3.1 // indirect
 	github.com/gorilla/handlers v1.5.1 // indirect
 	github.com/gorilla/mux v1.8.0 // indirect
@@ -71,3 +74,5 @@ require (
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
+
+replace github.com/correooke/MyMeal/common => ../common

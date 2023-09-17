@@ -3,9 +3,9 @@ package repository
 import (
 	"context"
 
+	"github.com/correooke/MyMeal/common/db"
 	"github.com/correooke/MyMeal/common/model"
 	"go.mongodb.org/mongo-driver/bson"
-	"go.mongodb.org/mongo-driver/mongo"
 )
 
 type CommonRepository[T model.Entity] interface {
@@ -18,21 +18,15 @@ type CommonRepository[T model.Entity] interface {
 }
 
 type mongoRepository[T model.Entity] struct {
-	client         *mongo.Client
-	database       string
-	collectionName string
+	collection db.CollectionInterface
 }
 
-func NewMongoRepository[T model.Entity](client *mongo.Client, database string, collectionName string) CommonRepository[T] {
-	return &mongoRepository[T]{client: client, database: database, collectionName: collectionName}
-}
-
-func (m *mongoRepository[T]) collection() *mongo.Collection {
-	return m.client.Database(m.database).Collection(m.collectionName)
+func NewMongoRepository[T model.Entity](collection db.CollectionInterface) CommonRepository[T] {
+	return &mongoRepository[T]{collection: collection}
 }
 
 func (m *mongoRepository[T]) GetAll(ctx context.Context) ([]T, error) {
-	cur, err := m.collection().Find(ctx, bson.D{})
+	cur, err := m.collection.Find(ctx, bson.D{})
 	if err != nil {
 		return nil, err
 	}
@@ -48,7 +42,7 @@ func (m *mongoRepository[T]) GetAll(ctx context.Context) ([]T, error) {
 func (m *mongoRepository[T]) GetByFilter(ctx context.Context, filter map[string]interface{}) ([]T, error) {
 	var entities []T
 
-	cursor, err := m.collection().Find(ctx, filter)
+	cursor, err := m.collection.Find(ctx, filter)
 	if err != nil {
 		return nil, err
 	}
@@ -71,23 +65,23 @@ func (m *mongoRepository[T]) GetByFilter(ctx context.Context, filter map[string]
 
 func (m *mongoRepository[T]) GetByID(ctx context.Context, id string) (T, error) {
 	var entity T
-	if err := m.collection().FindOne(ctx, bson.M{"_id": id}).Decode(&entity); err != nil {
+	if err := m.collection.FindOne(ctx, bson.M{"_id": id}).Decode(&entity); err != nil {
 		return entity, err
 	}
 	return entity, nil
 }
 
 func (m *mongoRepository[T]) Create(ctx context.Context, entity T) error {
-	_, err := m.collection().InsertOne(ctx, entity)
+	_, err := m.collection.InsertOne(ctx, entity)
 	return err
 }
 
 func (m *mongoRepository[T]) Update(ctx context.Context, id string, entity T) error {
-	_, err := m.collection().UpdateOne(ctx, bson.M{"_id": id}, bson.M{"$set": entity})
+	_, err := m.collection.UpdateOne(ctx, bson.M{"_id": id}, bson.M{"$set": entity})
 	return err
 }
 
 func (m *mongoRepository[T]) Delete(ctx context.Context, id string) error {
-	_, err := m.collection().DeleteOne(ctx, bson.M{"_id": id})
+	_, err := m.collection.DeleteOne(ctx, bson.M{"_id": id})
 	return err
 }

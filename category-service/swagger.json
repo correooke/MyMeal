@@ -1,0 +1,90 @@
+{
+  "swagger": "2.0",
+  "paths": {
+    "/categoryes": {
+      "get": {
+        "tags": [
+          "categoryes"
+        ],
+        "operationId": "getCategoryes",
+        "responses": {
+          "200": {
+            "$ref": "#/responses/successfulOperation"
+          },
+          "500": {
+            "$ref": "#/responses/internalServerError"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "categoryes"
+        ],
+        "operationId": "createCategory",
+        "responses": {
+          "200": {
+            "$ref": "#/responses/successfulOperation"
+          },
+          "400": {
+            "$ref": "#/responses/badRequestError"
+          },
+          "500": {
+            "$ref": "#/responses/internalServerError"
+          }
+        }
+      }
+    },
+    "/categoryes/{id}": {
+      "put": {
+        "tags": [
+          "categoryes"
+        ],
+        "operationId": "updateCategory",
+        "responses": {
+          "200": {
+            "$ref": "#/responses/successfulOperation"
+          },
+          "400": {
+            "$ref": "#/responses/badRequestError"
+          },
+          "404": {
+            "$ref": "#/responses/notFoundError"
+          },
+          "500": {
+            "$ref": "#/responses/internalServerError"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "categoryes"
+        ],
+        "operationId": "deleteCategory",
+        "responses": {
+          "200": {
+            "$ref": "#/responses/successfulOperation"
+          },
+          "404": {
+            "$ref": "#/responses/notFoundError"
+          },
+          "500": {
+            "$ref": "#/responses/internalServerError"
+          }
+        }
+      }
+    },
+    "/isalive": {
+      "get": {
+        "tags": [
+          "categoryes"
+        ],
+        "operationId": "isAlive",
+        "responses": {
+          "200": {
+            "$ref": "#/responses/successfulOperation"
+          }
+        }
+      }
+    }
+  }
+}

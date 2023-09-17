@@ -2,35 +2,32 @@ package main
 
 import (
 	"context"
+	"dish-service/api/model"
 	"dish-service/api/router"
-	"dish-service/internal/app/dish/handler"
-	"dish-service/internal/app/dish/repository"
-	"dish-service/internal/app/dish/service"
 	"fmt"
 	"log"
 	"net/http"
 
-	"go.mongodb.org/mongo-driver/mongo"
-	"go.mongodb.org/mongo-driver/mongo/options"
+	"github.com/correooke/MyMeal/common/db"
+	basehandler "github.com/correooke/MyMeal/common/handler"
+	baserepo "github.com/correooke/MyMeal/common/repository"
+	baseservice "github.com/correooke/MyMeal/common/service"
 )
 
 func main() {
-	// Setup MongoDB connection
-	fmt.Println("Initiating Dishes API...")
-	clientOptions := options.Client().ApplyURI("mongodb://localhost:27017")
-	client, err := mongo.Connect(context.TODO(), clientOptions)
+	cli, err := db.ConnectToMongoDB("mongodb://localhost:27017")
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer client.Disconnect(context.TODO())
+	mongoCollection := cli.Database("mymealdb").Collection("dishes")
+	collection := db.NewRealCollection(mongoCollection)
+	repo := baserepo.NewMongoRepository[model.Dish](collection)
+	srv := baseservice.NewService[model.Dish](repo)
+	handler := basehandler.NewCommonHandler[model.Dish](srv)
 
-	repo := repository.NewMongoDishRepository(client, "dishesdb")
-	logRepo := repository.NewLogDishRepositoryDecorator(repo)
-	service := service.NewDishService(logRepo)
-	dishHandler := handler.NewDishHandler(service)
+	r := router.NewRouter(&handler)
 
-	// Setup routes
-	r := router.NewRouter(dishHandler)
+	defer cli.Disconnect(context.TODO())
 
 	fmt.Println("Listening on port 8080...")
 	http.ListenAndServe(":8080", r)

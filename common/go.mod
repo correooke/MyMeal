@@ -2,6 +2,8 @@ module github.com/correooke/MyMeal/common
 
 go 1.21.0
 
+require github.com/sirupsen/logrus v1.9.3
+
 require (
 	github.com/golang/snappy v0.0.1 // indirect
 	github.com/gorilla/mux v1.8.0 // indirect
@@ -14,5 +16,6 @@ require (
 	go.mongodb.org/mongo-driver v1.12.1 // indirect
 	golang.org/x/crypto v0.0.0-20220622213112-05595931fe9d // indirect
 	golang.org/x/sync v0.0.0-20220722155255-886fb9371eb4 // indirect
+	golang.org/x/sys v0.0.0-20220722155257-8c9f86f7a55f // indirect
 	golang.org/x/text v0.7.0 // indirect
 )
