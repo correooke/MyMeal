@@ -1,8 +1,11 @@
 package handler
 
-import "net/http"
+import (
+	"net/http"
 
-func IsAlive(w http.ResponseWriter, r *http.Request) {
-	w.WriteHeader(http.StatusOK)
-	w.Write([]byte("Server is alive!"))
+	"github.com/labstack/echo/v4"
+)
+
+func IsAlive(c echo.Context) error {
+	return c.JSON(http.StatusOK, "Server is alive!")
 }

@@ -2,14 +2,14 @@ package router
 
 import (
 	"category-service/api/model"
+	"net/http"
 
 	basehandler "github.com/correooke/MyMeal/common/handler"
 
 	baserouter "github.com/correooke/MyMeal/common/router"
-	"github.com/gorilla/mux"
 )
 
-func NewRouter(h *basehandler.CommonHandler[model.Category]) *mux.Router {
+func NewRouter(h *basehandler.CommonHandler[model.Category]) http.Handler {
 	r := baserouter.NewRouter()
 
 	baserouter.AddCRUDRoutes[model.Category](r, h, "categories")

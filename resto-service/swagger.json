@@ -1,0 +1,90 @@
+{
+  "swagger": "2.0",
+  "paths": {
+    "/restoes": {
+      "get": {
+        "tags": [
+          "restoes"
+        ],
+        "operationId": "getRestoes",
+        "responses": {
+          "200": {
+            "$ref": "#/responses/successfulOperation"
+          },
+          "500": {
+            "$ref": "#/responses/internalServerError"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "restoes"
+        ],
+        "operationId": "createResto",
+        "responses": {
+          "200": {
+            "$ref": "#/responses/successfulOperation"
+          },
+          "400": {
+            "$ref": "#/responses/badRequestError"
+          },
+          "500": {
+            "$ref": "#/responses/internalServerError"
+          }
+        }
+      }
+    },
+    "/restoes/{id}": {
+      "put": {
+        "tags": [
+          "restoes"
+        ],
+        "operationId": "updateResto",
+        "responses": {
+          "200": {
+            "$ref": "#/responses/successfulOperation"
+          },
+          "400": {
+            "$ref": "#/responses/badRequestError"
+          },
+          "404": {
+            "$ref": "#/responses/notFoundError"
+          },
+          "500": {
+            "$ref": "#/responses/internalServerError"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "restoes"
+        ],
+        "operationId": "deleteResto",
+        "responses": {
+          "200": {
+            "$ref": "#/responses/successfulOperation"
+          },
+          "404": {
+            "$ref": "#/responses/notFoundError"
+          },
+          "500": {
+            "$ref": "#/responses/internalServerError"
+          }
+        }
+      }
+    },
+    "/isalive": {
+      "get": {
+        "tags": [
+          "restoes"
+        ],
+        "operationId": "isAlive",
+        "responses": {
+          "200": {
+            "$ref": "#/responses/successfulOperation"
+          }
+        }
+      }
+    }
+  }
+}

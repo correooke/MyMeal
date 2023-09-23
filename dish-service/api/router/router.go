@@ -2,13 +2,13 @@ package router
 
 import (
 	"dish-service/api/model"
+	"net/http"
 
 	basehandler "github.com/correooke/MyMeal/common/handler"
 	baserouter "github.com/correooke/MyMeal/common/router"
-	"github.com/gorilla/mux"
 )
 
-func NewRouter(h *basehandler.CommonHandler[model.Dish]) *mux.Router {
+func NewRouter(h *basehandler.CommonHandler[model.Dish]) http.Handler {
 	r := baserouter.NewRouter()
 
 	baserouter.AddCRUDRoutes[model.Dish](r, h, "dishes")

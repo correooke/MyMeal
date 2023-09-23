@@ -7,3 +7,7 @@ type Category struct {
 	Image       string   `bson:"image" json:"image"`
 	Dishes      []string `bson:"dishes" json:"dishes"`
 }
+
+func (c Category) GetID() string {
+	return c.ID
+}

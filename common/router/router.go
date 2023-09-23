@@ -2,32 +2,30 @@ package router
 
 import (
 	"fmt"
-	"net/http"
 
 	"github.com/correooke/MyMeal/common/handler"
 	"github.com/correooke/MyMeal/common/model"
-
-	"github.com/gorilla/mux"
+	"github.com/labstack/echo/v4"
 )
 
-func NewRouter() *mux.Router {
-	r := mux.NewRouter()
+func NewRouter() *echo.Echo {
+	r := echo.New()
 
 	return r
 }
 
-func AddIsAlive(r *mux.Router) *mux.Router {
-	r.HandleFunc("/isalive", handler.IsAlive).Methods(http.MethodGet)
-	// ... otros middlewares o configuraciones comunes ...
+func AddIsAlive(r *echo.Echo) *echo.Echo {
+	r.GET("/isalive", handler.IsAlive)
+
 	return r
 }
 
-func AddCRUDRoutes[T model.Entity](r *mux.Router, ch *handler.CommonHandler[T], baseRoute string) *mux.Router {
-	r.HandleFunc(fmt.Sprintf("/%s", baseRoute), ch.GetAll).Methods(http.MethodGet)
-	r.HandleFunc(fmt.Sprintf("/%s/{id}", baseRoute), ch.GetByID).Methods(http.MethodGet)
-	r.HandleFunc(fmt.Sprintf("/%s", baseRoute), ch.Create).Methods(http.MethodPost)
-	r.HandleFunc(fmt.Sprintf("/%s/{id}", baseRoute), ch.Update).Methods(http.MethodPut)
-	r.HandleFunc(fmt.Sprintf("/%s/{id}", baseRoute), ch.Delete).Methods(http.MethodDelete)
+func AddCRUDRoutes[T model.Entity](r *echo.Echo, ch *handler.CommonHandler[T], baseRoute string) *echo.Echo {
+	r.GET(fmt.Sprintf("/%s", baseRoute), ch.GetAll)
+	r.GET(fmt.Sprintf("/%s/{id}", baseRoute), ch.GetByID)
+	r.POST(fmt.Sprintf("/%s", baseRoute), ch.Create)
+	r.PUT(fmt.Sprintf("/%s/{id}", baseRoute), ch.Update)
+	r.DELETE(fmt.Sprintf("/%s/{id}", baseRoute), ch.Delete)
 
 	return r
 }

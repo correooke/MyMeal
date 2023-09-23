@@ -1,12 +1,11 @@
 package handler
 
 import (
-	"encoding/json"
 	"net/http"
 
 	"github.com/correooke/MyMeal/common/model"
 	"github.com/correooke/MyMeal/common/service"
-	"github.com/gorilla/mux"
+	"github.com/labstack/echo/v4"
 )
 
 type CommonHandler[T model.Entity] struct {
@@ -17,57 +16,51 @@ func NewCommonHandler[T model.Entity](service service.CommonService[T]) CommonHa
 	return CommonHandler[T]{Service: service}
 }
 
-func (h *CommonHandler[T]) GetAll(w http.ResponseWriter, r *http.Request) {
-	entities, err := h.Service.GetAll(r.Context())
+func (h *CommonHandler[T]) GetAll(c echo.Context) error {
+	entities, err := h.Service.GetAll(c.Request().Context())
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
+		return c.JSON(http.StatusInternalServerError, err.Error())
 	}
-	json.NewEncoder(w).Encode(entities)
+	return c.JSON(http.StatusOK, entities)
 }
 
-func (h *CommonHandler[T]) GetByID(w http.ResponseWriter, r *http.Request) {
-	params := mux.Vars(r)
-	entity, err := h.Service.GetByID(r.Context(), params["id"])
+func (h *CommonHandler[T]) GetByID(c echo.Context) error {
+	id := c.Param("id")
+	entity, err := h.Service.GetByID(c.Request().Context(), id)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
+		return c.JSON(http.StatusInternalServerError, err.Error())
 	}
-	json.NewEncoder(w).Encode(entity)
+	return c.JSON(http.StatusOK, entity)
 }
 
-func (h *CommonHandler[T]) Create(w http.ResponseWriter, r *http.Request) {
+func (h *CommonHandler[T]) Create(c echo.Context) error {
 	var entity T
-	if err := json.NewDecoder(r.Body).Decode(&entity); err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
+	if err := c.Bind(&entity); err != nil {
+		return c.JSON(http.StatusInternalServerError, err.Error())
 	}
-	if err := h.Service.Create(r.Context(), entity); err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
+	if err := h.Service.Create(c.Request().Context(), entity); err != nil {
+		return c.JSON(http.StatusInternalServerError, err.Error())
 	}
-	w.WriteHeader(http.StatusCreated)
+	//c.Response().Header().Set("Location", fmt.Sprintf("/path/to/resource/%s", entity.ID()))
+	return c.JSON(http.StatusCreated, entity)
 }
 
-func (h *CommonHandler[T]) Update(w http.ResponseWriter, r *http.Request) {
-	params := mux.Vars(r)
+func (h *CommonHandler[T]) Update(c echo.Context) error {
+	id := c.Param("id")
 	var entity T
-	if err := json.NewDecoder(r.Body).Decode(&entity); err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
+	if err := c.Bind(&entity); err != nil {
+		return c.JSON(http.StatusInternalServerError, err.Error())
 	}
-	if err := h.Service.Update(r.Context(), params["id"], entity); err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
+	if err := h.Service.Update(c.Request().Context(), id, entity); err != nil {
+		return c.JSON(http.StatusInternalServerError, err.Error())
 	}
-	w.WriteHeader(http.StatusOK)
+	return c.JSON(http.StatusOK, entity)
 }
 
-func (h *CommonHandler[T]) Delete(w http.ResponseWriter, r *http.Request) {
-	params := mux.Vars(r)
-	if err := h.Service.Delete(r.Context(), params["id"]); err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
+func (h *CommonHandler[T]) Delete(c echo.Context) error {
+	id := c.Param("id")
+	if err := h.Service.Delete(c.Request().Context(), id); err != nil {
+		return c.JSON(http.StatusInternalServerError, err.Error())
 	}
-	w.WriteHeader(http.StatusOK)
+	return c.JSON(http.StatusNoContent, nil)
 }
