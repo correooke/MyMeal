@@ -1,0 +1,26 @@
+{
+	"folders": [
+		{
+			"path": "common"
+		},
+		{
+			"path": "restaurant-group-service"
+		},
+		{
+			"path": "resto-service"
+		},
+		{
+			"path": "menu-service"
+		},
+		{
+			"path": "category-service"
+		},
+		{
+			"path": "dish-service"
+		},
+		{
+			"path": "functions"
+		}
+	],
+	"settings": {}
+}

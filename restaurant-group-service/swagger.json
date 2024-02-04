@@ -1,0 +1,90 @@
+{
+  "swagger": "2.0",
+  "paths": {
+    "/restaurantGroupes": {
+      "get": {
+        "tags": [
+          "restaurantGroupes"
+        ],
+        "operationId": "getRestaurantGroupes",
+        "responses": {
+          "200": {
+            "$ref": "#/responses/successfulOperation"
+          },
+          "500": {
+            "$ref": "#/responses/internalServerError"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "restaurantGroupes"
+        ],
+        "operationId": "createRestaurantGroup",
+        "responses": {
+          "200": {
+            "$ref": "#/responses/successfulOperation"
+          },
+          "400": {
+            "$ref": "#/responses/badRequestError"
+          },
+          "500": {
+            "$ref": "#/responses/internalServerError"
+          }
+        }
+      }
+    },
+    "/restaurantGroupes/{id}": {
+      "put": {
+        "tags": [
+          "restaurantGroupes"
+        ],
+        "operationId": "updateRestaurantGroup",
+        "responses": {
+          "200": {
+            "$ref": "#/responses/successfulOperation"
+          },
+          "400": {
+            "$ref": "#/responses/badRequestError"
+          },
+          "404": {
+            "$ref": "#/responses/notFoundError"
+          },
+          "500": {
+            "$ref": "#/responses/internalServerError"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "restaurantGroupes"
+        ],
+        "operationId": "deleteRestaurantGroup",
+        "responses": {
+          "200": {
+            "$ref": "#/responses/successfulOperation"
+          },
+          "404": {
+            "$ref": "#/responses/notFoundError"
+          },
+          "500": {
+            "$ref": "#/responses/internalServerError"
+          }
+        }
+      }
+    },
+    "/isalive": {
+      "get": {
+        "tags": [
+          "restaurantGroupes"
+        ],
+        "operationId": "isAlive",
+        "responses": {
+          "200": {
+            "$ref": "#/responses/successfulOperation"
+          }
+        }
+      }
+    }
+  }
+}
