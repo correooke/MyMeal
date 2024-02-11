@@ -3,13 +3,13 @@
 import { Product } from "@/models/product";
 import { Box } from "@mui/material";
 import { FC, useState } from "react";
-import ProductInput from "./ProductInput";
-import ProductDescriptionInput from "./ProductDescriptionInput";
-import PriceInput from "./PriceInput";
-import DeleteButton from "./DeleteButton";
-import IsActiveOption from "./IsActionOption";
-import ProductDetails from "./ProductDetails";
-import ProductImageUploader from "./ProductImageUploader";
+import ProductInput from "./components/ProductInput";
+import ProductDescriptionInput from "./components/ProductDescriptionInput";
+import PriceInput from "./components/PriceInput";
+import DeleteButton from "./components/DeleteButton";
+import IsActiveOption from "./components/IsActionOption";
+import ProductDetails from "./components/ProductDetails";
+import ProductImageUploader from "./components/ProductImageUploader";
 
 interface ProductFormProps {
   product: Product;
@@ -28,7 +28,7 @@ const ProductForm: FC<ProductFormProps> = ({ product }) => {
   };
 
   return (
-    <Box>
+    <Box sx={{ maxWidth: "650px" }}>
       <ProductImageUploader />
       <ProductInput value={updatedProduct.name} onChange={handleChange} />
       <IsActiveOption

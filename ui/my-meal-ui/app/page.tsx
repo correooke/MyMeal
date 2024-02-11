@@ -1,23 +1,26 @@
-import ProductForm from "@/components/ProductForm/ProductForm";
-import Image from "next/image";
-import { ChangeEvent } from "react";
-import { Product } from "@/models/product";
+import BusinessForm from "@/components/BusinessForm/BusinessForm";
+import CategoryForm from "@/components/CategoryForm/CategoryForm";
+import SideCard from "@/components/SideCard/SideCard";
+import { Container } from "@mui/material";
+import Grid from "@mui/material/Grid";
 
 export default function Home() {
-  const mockProduct: Product = {
-    name: "Sample Product",
-    price: 10.99,
-    description: "This is a sample product description",
-    id: 0,
-    imageUrl: "",
-    isActive: false,
-  };
-
   return (
-    <main>
-      <h1>MyMeal</h1>
-      <Image src="/logo.png" alt="MyMeal logo" width={200} height={200} />
-      <ProductForm product={mockProduct} />
-    </main>
+    <Container maxWidth={false} disableGutters>
+      <Grid
+        container
+        spacing={0}
+        style={{ height: "100vh" }}
+        sx={{ padding: "0px" }}
+      >
+        <Grid item xs={2} container sx={{ padding: "0px" }}>
+          <SideCard />
+        </Grid>
+        <Grid item xs={10} container>
+          <BusinessForm />
+          <CategoryForm />
+        </Grid>
+      </Grid>
+    </Container>
   );
 }

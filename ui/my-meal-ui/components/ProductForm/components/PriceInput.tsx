@@ -1,5 +1,5 @@
 import { TextField } from "@mui/material";
-import { NumberProps } from "./NumberProps";
+import { NumberProps } from "../../Shared/NumberProps";
 
 const PriceInput = ({ value, onChange }: NumberProps) => (
   <TextField

@@ -1,6 +1,6 @@
 import React from "react";
 import { TextField } from "@mui/material";
-import { InputProps } from "./StringProps";
+import { InputProps } from "../../Shared/StringProps";
 
 const ProductDescriptionInput = ({ value, onChange }: InputProps) => (
   <TextField

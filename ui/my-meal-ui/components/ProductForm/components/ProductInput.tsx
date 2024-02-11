@@ -1,5 +1,5 @@
 import { TextField } from "@mui/material";
-import { InputProps } from "./StringProps";
+import { InputProps } from "../../Shared/StringProps";
 
 const ProductInput = ({ value, onChange }: InputProps) => (
   <TextField
