@@ -7,8 +7,8 @@ const BusinessNameInput = ({ value, onChange }: InputProps) => (
     value={value}
     label={"Nombre del negocio"}
     onChange={(event) => onChange(event.target.value, event.target.name)}
-    sx={{ width: "400px" }}
     margin="none"
+    sx={{ width: "800px" }}
   />
 );
 

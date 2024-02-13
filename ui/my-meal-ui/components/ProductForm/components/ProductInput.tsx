@@ -8,7 +8,6 @@ const ProductInput = ({ value, onChange }: InputProps) => (
     label={"Producto"}
     onChange={(event) => onChange(event.target.value, event.target.name)}
     fullWidth
-    margin="normal"
   />
 );
 

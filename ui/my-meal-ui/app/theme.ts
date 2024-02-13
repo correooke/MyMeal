@@ -5,12 +5,20 @@ declare module '@mui/material/styles' {
     header: {
       height: string;
     };
+    border: {
+      radius: string;
+    },
+    mainWidth: string;
   }
   // allow configuration using `createTheme`
   interface ThemeOptions {
     header?: {
       height?: string;
     };
+    border?: {
+      radius?: string;
+    },
+    mainWidth?: string;
   }
 }
 
@@ -30,6 +38,30 @@ const theme = createTheme({
     header: {
       height: "130px",
     },
+    border: {
+      radius: "10px",
+    },
+    mainWidth: "800px",
+    components: {
+      MuiTextField: {
+        styleOverrides: {
+          root: {
+
+          },
+          
+        },
+      },
+      MuiFilledInput: {
+        styleOverrides: {
+          root: {
+            backgroundColor: "#FFF",
+          },
+        },
+      },
+
+
+    }
+
   });
 
   export default theme;

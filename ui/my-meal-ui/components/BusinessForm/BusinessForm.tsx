@@ -7,10 +7,11 @@ import BusinessLogo from "./components/BusinessLogo";
 import BusinessNameInput from "./components/BusinessNameInput";
 import QRCodeGeneratorButton from "./components/QRCodeGeneratorButton";
 import PreviewButton from "./components/PreviewButton";
+import CurrencySelector from "./components/CurrencySelector";
 
 const BusinessForm: FC = () => {
   return (
-    <Box width={"100%"}>
+    <Box sx={{ width: "100%", display: "block", height: "220px" }}>
       <BusinessImage />
       <Box
         sx={{
@@ -23,8 +24,19 @@ const BusinessForm: FC = () => {
       >
         <BusinessLogo />
         <BusinessNameInput value={"Las violetas"} onChange={() => {}} />
-        <QRCodeGeneratorButton />
-        <PreviewButton />
+        <CurrencySelector />
+        <Box
+          sx={{
+            width: "100%",
+            display: "flex",
+            gap: "10px",
+            justifyContent: "flex-end",
+            padding: "10px",
+          }}
+        >
+          <QRCodeGeneratorButton />
+          <PreviewButton />
+        </Box>
       </Box>
     </Box>
   );

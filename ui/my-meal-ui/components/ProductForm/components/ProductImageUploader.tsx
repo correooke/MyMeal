@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import { Button, Grid, Typography } from "@mui/material";
+import { Box, CardMedia, Grid, Typography } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 
 const ProductImageUploader: React.FC = () => {
+  const theme = useTheme();
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -20,12 +22,23 @@ const ProductImageUploader: React.FC = () => {
           style={{ display: "none" }}
         />
         <label htmlFor="product-image-upload">
-          <Button variant="contained" component="span">
-            Selecciona la imagen
-          </Button>
+          <CardMedia
+            sx={{
+              width: 120,
+              height: 120,
+              padding: 0,
+              borderRadius: theme.border.radius,
+              border: `1px solid ${theme.palette.primary.main}`,
+            }}
+            component="img"
+            image={"/resources/images/photo-place-holder.png"}
+            alt="Business Logo Image"
+          />
         </label>
         {!selectedImage && (
-          <Typography variant="body1">Sube hasta dos imágenes</Typography>
+          <Box maxWidth={120} textAlign={"center"}>
+            <Typography variant="caption">Sube hasta dos imágenes</Typography>
+          </Box>
         )}
         {selectedImage && (
           <Typography variant="body1">{selectedImage.name}</Typography>

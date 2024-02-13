@@ -10,7 +10,6 @@ const PriceInput = ({ value, onChange }: NumberProps) => (
       onChange(parseInt(event.target.value), event.target.name)
     }
     fullWidth
-    margin="normal"
     type="number"
   />
 );

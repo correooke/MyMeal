@@ -11,7 +11,6 @@ const ProductDescriptionInput = ({ value, onChange }: InputProps) => (
     multiline
     rows={4}
     fullWidth
-    margin="normal"
   />
 );
 

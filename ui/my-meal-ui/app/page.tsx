@@ -1,7 +1,7 @@
 import BusinessForm from "@/components/BusinessForm/BusinessForm";
 import CategoryForm from "@/components/CategoryForm/CategoryForm";
 import SideCard from "@/components/SideCard/SideCard";
-import { Container } from "@mui/material";
+import { Box, Container } from "@mui/material";
 import Grid from "@mui/material/Grid";
 
 export default function Home() {
@@ -16,9 +16,22 @@ export default function Home() {
         <Grid item xs={2} container sx={{ padding: "0px" }}>
           <SideCard />
         </Grid>
-        <Grid item xs={10} container>
-          <BusinessForm />
-          <CategoryForm />
+        <Grid item xs={10} container spacing={0}>
+          <Box sx={{ width: "100%", height: "25vh" }}>
+            <BusinessForm />
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              width: "100%",
+              height: "75vh",
+              justifyContent: "center",
+              alignItems: "top",
+              overflow: "auto",
+            }}
+          >
+            <CategoryForm />
+          </Box>
         </Grid>
       </Grid>
     </Container>
